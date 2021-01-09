@@ -4,7 +4,17 @@ metricbeat.modules:
     hosts: ["unix:///var/run/docker.sock"]
     period: 10s
 output:
-  logstash:
-    enabled: true
-    hosts:
-      - elk:5044
+  logstash.hosts: ["logstash:5044"]
+  elasticsearch:
+    enabled: false
+    hosts: ["elasticsearch:9200"]
+    username: ${ADMIN_USER}
+    password: ${ADMIN_PASSWORD}
+setup:
+  kibana:
+    host: "kibana:5601"
+    username: ${ADMIN_USER}
+    password: ${ADMIN_PASSWORD}
+http:
+  enabled: true
+  host: 0.0.0.0
